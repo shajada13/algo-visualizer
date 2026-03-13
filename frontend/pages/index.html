@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoViz — Algorithm Visualizer</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/home.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">AV</div>
+      <span class="nav-logo-text">Algo<span>Viz</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-page="home">Home</a></li>
+      <li><a href="visualizer.html" data-page="visualizer">Algorithms</a></li>
+      <li><a href="about.html" data-page="about">About</a></li>
+      <li><a href="visualizer.html" class="nav-cta">Try it →</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+      <div class="hero-grid-bg"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Interactive Learning Platform</div>
+        <h1>
+          <span class="line-dim">See Algorithms</span>
+          <span class="line-accent">Come Alive</span>
+        </h1>
+        <p class="hero-desc">
+          Watch sorting, searching and graph algorithms execute step-by-step with real-time visualization, code highlighting, and detailed explanations.
+        </p>
+        <div class="hero-actions">
+          <a href="visualizer.html" class="btn btn-primary">
+            ▶ Start Visualizing
+          </a>
+          <a href="about.html" class="btn btn-outline">
+            Learn More
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-num">10+</span>
+            <span class="hero-stat-label">Algorithms</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">3</span>
+            <span class="hero-stat-label">Categories</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">∞</span>
+            <span class="hero-stat-label">Steps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── WHAT IS ALGORITHM VISUALIZATION ─── -->
+    <section class="section">
+      <div class="what-is-grid">
+        <div class="reveal">
+          <div class="section-label">// what is this</div>
+          <h2 class="section-title">Algorithm Visualization Explained</h2>
+          <p class="section-desc">
+            Algorithm visualization transforms abstract code into dynamic, interactive animations. Instead of reading pseudocode, you watch each comparison, swap, and pointer move in real-time — making complex logic intuitive and memorable.
+          </p>
+          <br>
+          <p class="section-desc">
+            Research shows visual learners retain 65% more information when concepts are shown rather than described. AlgoViz bridges the gap between theory and understanding.
+          </p>
+        </div>
+        <div class="what-is-visual reveal">
+          <div class="mini-bars" id="demoBars">
+            <div class="mini-bar default" style="height:35%" data-val="3"><span class="mini-bar-label">3</span></div>
+            <div class="mini-bar compared" style="height:80%" data-val="8"><span class="mini-bar-label">8</span></div>
+            <div class="mini-bar active" style="height:60%" data-val="6"><span class="mini-bar-label">6</span></div>
+            <div class="mini-bar default" style="height:20%" data-val="2"><span class="mini-bar-label">2</span></div>
+            <div class="mini-bar sorted" style="height:90%" data-val="9"><span class="mini-bar-label">9</span></div>
+            <div class="mini-bar default" style="height:50%" data-val="5"><span class="mini-bar-label">5</span></div>
+            <div class="mini-bar default" style="height:70%" data-val="7"><span class="mini-bar-label">7</span></div>
+          </div>
+          <div class="visual-step-info" id="demoStepInfo">
+            ▶ Step 3 — Comparing elements 8 and 6 → Swap!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ALGORITHMS AVAILABLE ─── -->
+    <section class="section algos-section">
+      <div class="container">
+        <div class="reveal" style="text-align:center; margin-bottom:0;">
+          <div class="section-label">// algorithms available</div>
+          <h2 class="section-title">What Can You Visualize?</h2>
+        </div>
+        <div class="algos-grid">
+
+          <a href="visualizer.html?category=sorting" class="algo-card reveal">
+            <span class="algo-card-arrow">↗</span>
+            <div class="algo-card-icon icon-sort">📊</div>
+            <h3>Sorting Algorithms</h3>
+            <p>Watch arrays transform step-by-step using Bubble Sort, Merge Sort, Quick Sort, Insertion Sort and Selection Sort.</p>
+            <div class="algo-card-tags">
+              <span class="tag tag-cyan">Bubble</span>
+              <span class="tag tag-cyan">Merge</span>
+              <span class="tag tag-cyan">Quick</span>
+            </div>
+          </a>
+
+          <a href="visualizer.html?category=searching" class="algo-card reveal">
+            <span class="algo-card-arrow">↗</span>
+            <div class="algo-card-icon icon-search">🔍</div>
+            <h3>Searching Algorithms</h3>
+            <p>Understand how Linear Search scans sequentially and how Binary Search eliminates half the array with each step.</p>
+            <div class="algo-card-tags">
+              <span class="tag tag-green">Linear</span>
+              <span class="tag tag-green">Binary</span>
+            </div>
+          </a>
+
+          <a href="visualizer.html?category=graph" class="algo-card reveal">
+            <span class="algo-card-arrow">↗</span>
+            <div class="algo-card-icon icon-graph">🕸️</div>
+            <h3>Graph Algorithms</h3>
+            <p>Traverse nodes with Breadth-First Search, Depth-First Search, and find shortest paths with Dijkstra's algorithm.</p>
+            <div class="algo-card-tags">
+              <span class="tag tag-orange">BFS</span>
+              <span class="tag tag-orange">DFS</span>
+              <span class="tag tag-orange">Dijkstra</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── HOW IT WORKS ─── -->
+    <section class="section">
+      <div class="how-section">
+        <div class="reveal" style="text-align:center;">
+          <div class="section-label">// how it works</div>
+          <h2 class="section-title">Three Simple Steps</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card reveal">
+            <div class="step-num">01</div>
+            <h3>Choose an Algorithm</h3>
+            <p>Select from sorting, searching, or graph categories. Pick the specific algorithm you want to explore from the dropdown menu.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-num">02</div>
+            <h3>Set Your Input</h3>
+            <p>Enter a custom array, generate a random one, or pick a preset. Adjust the speed slider to control how fast the animation plays.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-num">03</div>
+            <h3>Watch & Learn</h3>
+            <p>Hit Start and observe the algorithm execute. The code panel highlights the active line while the explanation panel narrates each step.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── WHY USE THIS TOOL ─── -->
+    <section class="section why-section">
+      <div style="text-align:center; margin-bottom:0; max-width:1100px; margin:0 auto;">
+        <div class="section-label reveal">// why use this tool</div>
+        <h2 class="section-title reveal">Built for Real Learning</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="why-icon">⚡</span>
+          <h4>Real-Time Animation</h4>
+          <p>Every swap, comparison, and pointer move is animated in real time so nothing is hidden from you.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">📄</span>
+          <h4>Live Code Highlighting</h4>
+          <p>Python code highlights the exact line executing at each step — see algorithm and code in sync.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">📖</span>
+          <h4>Step Explanations</h4>
+          <p>Plain-English descriptions at every step explain what's happening and why, not just what.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">🎛️</span>
+          <h4>Full Playback Control</h4>
+          <p>Start, pause, rewind, and adjust speed at any point. Review any step as many times as you need.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CTA ─── -->
+    <section class="cta-section reveal">
+      <div class="section-label">// ready to learn</div>
+      <h2>Start Visualizing Today</h2>
+      <p>No setup, no install. Open the visualizer and watch your first algorithm run in seconds.</p>
+      <a href="visualizer.html" class="btn btn-primary" style="font-size:1rem; padding:0.9rem 2.2rem;">
+        ▶ Open the Visualizer
+      </a>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="text-decoration:none;display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+          <div class="nav-logo-icon">AV</div>
+          <span class="nav-logo-text">Algo<span>Viz</span></span>
+        </a>
+        <p>An interactive platform for learning algorithms through step-by-step visualization. Built for students, by students.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="visualizer.html">Algorithm Visualizer</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Algorithms</h4>
+        <ul>
+          <li><a href="visualizer.html?algo=bubble_sort">Bubble Sort</a></li>
+          <li><a href="visualizer.html?algo=merge_sort">Merge Sort</a></li>
+          <li><a href="visualizer.html?algo=binary_search">Binary Search</a></li>
+          <li><a href="visualizer.html?algo=bfs">BFS / DFS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 AlgoViz — Built with Python + Flask + Vanilla JS</p>
+      <div class="footer-status">
+        <div class="status-dot"></div>
+        All systems operational
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/home.js"></script>
+</body>
+</html>

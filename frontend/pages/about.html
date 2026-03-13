@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — AlgoViz</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/about.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">AV</div>
+      <span class="nav-logo-text">Algo<span>Viz</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-page="home">Home</a></li>
+      <li><a href="visualizer.html" data-page="visualizer">Algorithms</a></li>
+      <li><a href="about.html" data-page="about">About</a></li>
+      <li><a href="visualizer.html" class="nav-cta">Try it →</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <div class="about-hero">
+      <div class="section-label">// about this project</div>
+      <h1>Built to Make <span>Algorithms Click</span></h1>
+      <p>AlgoViz is an open-source, interactive learning platform that transforms abstract algorithm logic into dynamic, real-time visual experiences — making CS fundamentals accessible to everyone.</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="about-content">
+      <div class="stats-row reveal">
+        <div class="stat-box"><span class="num">10+</span><span class="lbl">Algorithms</span></div>
+        <div class="stat-box"><span class="num">3</span><span class="lbl">Categories</span></div>
+        <div class="stat-box"><span class="num">5</span><span class="lbl">Technologies</span></div>
+        <div class="stat-box"><span class="num">∞</span><span class="lbl">Steps</span></div>
+      </div>
+
+      <!-- 1. About the Project -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">01</div>
+          <h2>About the Project</h2>
+        </div>
+        <p>
+          AlgoViz is a web-based algorithm visualization platform that allows users to watch sorting, searching, and graph algorithms execute step by step in real time. Rather than reading static pseudocode or tracing through diagrams by hand, users can interact with live animations, observe code highlighting, and read plain-English explanations at every stage of execution.
+        </p>
+        <p>
+          The platform is built on a clean separation of concerns: a Python Flask backend handles algorithm computation and generates structured step data, while a Vanilla JavaScript frontend handles animation, rendering, and user interaction. This architecture makes the system easy to extend — adding a new algorithm only requires writing one Python function and registering it on the frontend.
+        </p>
+      </div>
+
+      <!-- 2. Purpose -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">02</div>
+          <h2>Purpose</h2>
+        </div>
+        <p>
+          The primary goal of AlgoViz is to bridge the gap between algorithmic theory and intuitive understanding. Students and beginners learning data structures and algorithms often struggle with the abstract nature of sorting passes, pointer movements, and graph traversals. Textbooks describe what an algorithm does; AlgoViz shows exactly how it does it, one step at a time.
+        </p>
+        <p>
+          By watching Bubble Sort swap elements, or Binary Search eliminate half the array with each comparison, learners develop a mental model that persists far longer than anything read on a page. AlgoViz is designed as a tool for both self-directed learners and university-level computer science education.
+        </p>
+      </div>
+
+      <!-- 3. Features -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">03</div>
+          <h2>Key Features</h2>
+        </div>
+        <p>AlgoViz provides a full set of interactive tools designed to maximize learning at every level:</p>
+        <div class="features-grid">
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <div>
+              <h4>Real-Time Animation</h4>
+              <p>Every array state change, swap, comparison, and pointer move animates fluidly in the browser with smooth CSS transitions.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📄</span>
+            <div>
+              <h4>Live Code Highlighting</h4>
+              <p>The Python source code is displayed alongside the animation, with the active line highlighted at every step.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📊</span>
+            <div>
+              <h4>Sorting Algorithms</h4>
+              <p>Bubble Sort, Insertion Sort, Selection Sort, Merge Sort, and Quick Sort — all fully animated with detailed step logic.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔍</span>
+            <div>
+              <h4>Searching Algorithms</h4>
+              <p>Linear Search and Binary Search with custom target inputs. Watch how binary search's O(log n) efficiency plays out visually.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🕸️</span>
+            <div>
+              <h4>Graph Algorithms</h4>
+              <p>BFS, DFS, and Dijkstra visualized on an interactive node graph with traversal order shown in real time.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🎛️</span>
+            <div>
+              <h4>Full Playback Control</h4>
+              <p>Start, Pause, Step-forward, and Reset controls with a speed slider from 1x to 10x. Review any step as many times as needed.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✏️</span>
+            <div>
+              <h4>Custom Input Arrays</h4>
+              <p>Enter any comma-separated array, generate a random one, or use the default preset to explore edge cases.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📖</span>
+            <div>
+              <h4>Step Explanations</h4>
+              <p>Every step includes a plain-English description of what happened and why — not just what the code did.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Technologies -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">04</div>
+          <h2>Technologies Used</h2>
+        </div>
+        <p>AlgoViz uses a deliberately minimal technology stack, prioritizing clarity and learning over framework complexity:</p>
+        <div class="tech-stack">
+          <div class="tech-card">
+            <span class="tech-icon">🐍</span>
+            <h4>Python</h4>
+            <p>Core algorithm implementations with clean, readable code</p>
+          </div>
+          <div class="tech-card">
+            <span class="tech-icon">🌶️</span>
+            <h4>Flask</h4>
+            <p>Lightweight REST API backend serving step-by-step algorithm data</p>
+          </div>
+          <div class="tech-card">
+            <span class="tech-icon">🌐</span>
+            <h4>HTML5</h4>
+            <p>Semantic markup with Canvas API for graph visualization</p>
+          </div>
+          <div class="tech-card">
+            <span class="tech-icon">🎨</span>
+            <h4>CSS3</h4>
+            <p>Custom properties, CSS animations, and responsive grid layouts</p>
+          </div>
+          <div class="tech-card">
+            <span class="tech-icon">⚙️</span>
+            <h4>JavaScript</h4>
+            <p>Vanilla JS animation engine, DOM manipulation, and API client — no frameworks</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Educational Value -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">05</div>
+          <h2>Educational Value</h2>
+        </div>
+        <p>
+          Research in cognitive science consistently shows that visual representations of abstract processes significantly improve comprehension and retention. Algorithm visualization makes complexity tangible: when students can see that Merge Sort always takes O(n log n) steps while Bubble Sort degrades toward O(n²), the runtime analysis moves from abstract notation into lived, observable experience.
+        </p>
+        <p>
+          AlgoViz is particularly valuable for students preparing for technical interviews, computer science coursework, and competitive programming. Understanding algorithms at an intuitive level — not just at a syntactic level — is the difference between being able to recall an algorithm and being able to reason through variations of it independently.
+        </p>
+        <p>
+          The side-by-side layout of code, animation, and explanation is designed to build three complementary mental models simultaneously: the implementation, the data transformation, and the conceptual logic.
+        </p>
+      </div>
+
+      <!-- 6. Future Improvements -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">06</div>
+          <h2>Future Improvements</h2>
+        </div>
+        <p>AlgoViz is an evolving project. Planned improvements for future versions include:</p>
+        <ul class="future-list">
+          <li>Pathfinding algorithms (A*, Bellman-Ford)</li>
+          <li>Side-by-side algorithm comparison mode</li>
+          <li>Performance benchmarking with live charts</li>
+          <li>Improved graph editor with custom node placement</li>
+          <li>Dark/light theme toggle</li>
+          <li>Algorithm quiz mode for testing</li>
+          <li>Export visualization as GIF or video</li>
+          <li>Tree data structure visualizations (AVL, BST)</li>
+        </ul>
+      </div>
+
+      <!-- 7. Author -->
+      <div class="about-block reveal">
+        <div class="about-block-header">
+          <div class="about-block-num">07</div>
+          <h2>Author</h2>
+        </div>
+        <div class="author-card">
+          <div class="author-avatar">👨‍💻</div>
+          <div class="author-info">
+            <h3>CS Student & Developer</h3>
+            <div class="author-role">// Full-Stack Developer · Python · JavaScript</div>
+            <p>
+              AlgoViz was built as a university portfolio project with the goal of creating a genuinely useful learning tool for computer science students. The project was motivated by a personal frustration with purely text-based algorithm explanations and a belief that visual, interactive tools can fundamentally change how people learn to code and think algorithmically.
+            </p>
+            <p style="margin-top:0.75rem;">
+              The project is open source and built with standard web technologies to keep it accessible, portable, and easy to contribute to.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; padding: 2rem 0 0;" class="reveal">
+        <div class="section-label">// ready to explore</div>
+        <h2 style="font-size:2rem;font-weight:800;letter-spacing:-0.025em;margin:1rem 0;">See It in Action</h2>
+        <p style="color:var(--text-secondary);margin-bottom:2rem;">Open the visualizer and run your first algorithm in seconds.</p>
+        <a href="visualizer.html" class="btn btn-primary" style="font-size:1rem;padding:0.9rem 2.2rem;">▶ Open the Visualizer</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="text-decoration:none;display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+          <div class="nav-logo-icon">AV</div>
+          <span class="nav-logo-text">Algo<span>Viz</span></span>
+        </a>
+        <p>An interactive platform for learning algorithms through step-by-step visualization. Built for students, by students.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="visualizer.html">Algorithm Visualizer</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Algorithms</h4>
+        <ul>
+          <li><a href="visualizer.html?algo=bubble_sort">Bubble Sort</a></li>
+          <li><a href="visualizer.html?algo=merge_sort">Merge Sort</a></li>
+          <li><a href="visualizer.html?algo=binary_search">Binary Search</a></li>
+          <li><a href="visualizer.html?algo=bfs">BFS / DFS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 AlgoViz — Built with Python + Flask + Vanilla JS</p>
+      <div class="footer-status">
+        <div class="status-dot"></div>
+        All systems operational
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/navbar.js"></script>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+    reveals.forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
