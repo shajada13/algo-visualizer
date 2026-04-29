@@ -99,4 +99,4 @@ CELL_SIZE = VIZ_W // GRID_COLS       # প্রতিটি cell এর size
 # --- Speed Config ------------------------------------------------------------
 SPEED_MIN     = 1                    # সর্বনিম্ন speed
 SPEED_MAX     = 10                   # সর্বোচ্চ speed
-SPEED_DEFAULT = 5                    # শুরুতে speed
+SPEED_DEFAULT = 3                    # শুরুতে speed (slower default)

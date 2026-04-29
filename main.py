@@ -88,9 +88,13 @@ class VisualizerScene:
         self.code_pnl.active_line = -1
 
         if self.state.mode == "sorting":
-            # Sorting algorithm এর generator তৈরি করছি
             fn = SORTING_REGISTRY[self.state.algo_name]
-            self.state.generator = fn(list(self.state.array))
+            # Search algorithms এর জন্য target value পাঠাই
+            if self.state.is_search_algo:
+                self.state.generator = fn(list(self.state.array),
+                                          self.state.search_target)
+            else:
+                self.state.generator = fn(list(self.state.array))
             self.sort_view.reset_states()
         else:
             # Pathfinding algorithm এর generator তৈরি করছি

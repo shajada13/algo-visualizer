@@ -16,18 +16,15 @@ class ControlPanel:
         self.f_sub   = pygame.font.SysFont("Consolas", 11)
         self.f_hint  = pygame.font.SysFont("Consolas", 10)
 
-        # Mode tabs
         self.tab_sort = Button(16,  14, 118, 34, "Sorting",     toggle=True)
         self.tab_path = Button(140, 14, 138, 34, "Pathfinding", toggle=True)
         self.tab_sort.pressed = True
         for b in (self.tab_sort, self.tab_path):
             b.set_font(self.f_md)
 
-        # Algo dropdown
         self.dropdown = Dropdown(300, 14, 178, 34, state.algo_list)
         self.dropdown.set_font(self.f_md)
 
-        # Playback buttons
         self.btn_start  = Button(496, 14, 86, 34, "Start",  accent=True)
         self.btn_pause  = Button(588, 14, 86, 34, "Pause")
         self.btn_reset  = Button(680, 14, 86, 34, "Reset")
@@ -35,23 +32,26 @@ class ControlPanel:
         for b in (self.btn_start, self.btn_pause, self.btn_reset, self.btn_random):
             b.set_font(self.f_md)
 
-        # Speed slider
         self.slider = Slider(790, 38, 148, 20, 1, 10, state.speed, "Speed")
         self.slider.set_font(self.f_sm)
 
-        # ── Custom Array Input ────────────────────────────────────────────────
-        # "Apply" button — input validate করে array set করবে
+        # Custom Array Input
         self.array_input = TextInput(582, 58, 190, 28,
-                                     placeholder="e.g. 5,3,8,1,9")
+                                     placeholder="e.g. 5,3,8,1,9", mode="array")
         self.array_input.set_font(self.f_sm)
-
-        self.btn_apply  = Button(778, 58, 62, 28, "Apply")
+        self.btn_apply   = Button(778, 58, 62, 28, "Apply")
         self.btn_apply.set_font(self.f_sm)
 
-        self.input_msg  = ""          # feedback message (e.g. "Invalid!" or "Applied!")
-        self.input_msg_col = C_CYAN
-        self.input_msg_timer = 0      # কত frame দেখাবে
-        # ─────────────────────────────────────────────────────────────────────
+        # Search Target Input — Binary/Linear Search এর জন্য
+        self.target_input = TextInput(582, 58, 120, 28,
+                                      placeholder="target value", mode="number")
+        self.target_input.set_font(self.f_sm)
+        self.btn_set_target = Button(708, 58, 70, 28, "Set")
+        self.btn_set_target.set_font(self.f_sm)
+
+        self.input_msg       = ""
+        self.input_msg_col   = C_CYAN
+        self.input_msg_timer = 0
 
         # Pathfinding tools
         self.btn_set_start = Button(300, 56, 86, 30, "Set Start")
@@ -62,11 +62,9 @@ class ControlPanel:
 
         self.placing_mode = None
 
-    # ─────────────────────────────────────────────────────────────────────────
     def handle_event(self, event, app):
         if self.tab_sort.handle_event(event): self._switch("sorting", app)
         if self.tab_path.handle_event(event): self._switch("pathfinding", app)
-
         if self.dropdown.handle_event(event):
             self.state.algo_index = self.dropdown.selected; app.reset()
 
@@ -75,7 +73,6 @@ class ControlPanel:
         if self.btn_reset.handle_event(event):  app.reset()
         if self.btn_random.handle_event(event): app.randomise_array()
 
-        # Pathfinding tools
         if self.btn_set_start.handle_event(event):
             self.placing_mode = "start"
             self.state.status_msg = "Click a grid cell to place Start"
@@ -88,38 +85,41 @@ class ControlPanel:
         self.slider.handle_event(event)
         self.state.speed = self.slider.value
 
-        # ── Custom Array Input handling ───────────────────────────────────────
         if self.state.mode == "sorting" and not self.state.running:
-            # TextInput থেকে Enter চাপলে result আসে
-            result = self.array_input.handle_event(event)
-            if result is not None:
-                self._apply_custom_array(result, app)
-
-            # Apply button
-            if self.btn_apply.handle_event(event):
-                parsed = self.array_input._parse()
-                if parsed is not None:
-                    self._apply_custom_array(parsed, app)
-                else:
-                    self._set_msg("Invalid! Use numbers 1-200, max 50", (255, 69, 58))
-        # ─────────────────────────────────────────────────────────────────────
+            if self.state.is_search_algo:
+                # Target input
+                r = self.target_input.handle_event(event)
+                if r is not None: self._apply_target(r)
+                if self.btn_set_target.handle_event(event):
+                    p = self.target_input._parse()
+                    if p is not None: self._apply_target(p)
+                    else: self._set_msg("Enter a valid number!", (255,69,58))
+            else:
+                # Array input
+                r = self.array_input.handle_event(event)
+                if r is not None: self._apply_custom_array(r, app)
+                if self.btn_apply.handle_event(event):
+                    p = self.array_input._parse()
+                    if p is not None: self._apply_custom_array(p, app)
+                    else: self._set_msg("Invalid! Use numbers 1-200, max 50", (255,69,58))
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if not self.dropdown.rect.collidepoint(event.pos):
                 self.dropdown.open = False
 
     def _apply_custom_array(self, values, app):
-        """User দেওয়া array apply করো।"""
         app.reset()
         self.state.array = values
         self.state.bar_count = len(values)
         app.sort_view.reset_states()
         self._set_msg(f"Applied! {len(values)} elements", C_GREEN)
 
+    def _apply_target(self, val):
+        self.state.search_target = val
+        self._set_msg(f"Target set to {val} — press Start", C_CYAN)
+
     def _set_msg(self, msg, col):
-        self.input_msg = msg
-        self.input_msg_col = col
-        self.input_msg_timer = 150   # ~2.5 seconds at 60fps
+        self.input_msg = msg; self.input_msg_col = col; self.input_msg_timer = 150
 
     def _switch(self, mode, app):
         self.state.mode = mode
@@ -135,46 +135,46 @@ class ControlPanel:
         for w in (self.tab_sort, self.tab_path, self.dropdown,
                   self.btn_start, self.btn_pause, self.btn_reset, self.btn_random,
                   self.btn_set_start, self.btn_set_end, self.btn_clear,
-                  self.btn_apply):
+                  self.btn_apply, self.btn_set_target):
             w.update(mouse_pos)
-
         self.array_input.update()
+        self.target_input.update()
 
-        # Message timer countdown
         if self.input_msg_timer > 0:
             self.input_msg_timer -= 1
-            if self.input_msg_timer == 0:
-                self.input_msg = ""
+            if self.input_msg_timer == 0: self.input_msg = ""
 
         running  = self.state.running
         finished = self.state.finished
         paused   = self.state.paused
 
-        self.btn_start.enabled      = not running or finished
-        self.btn_pause.enabled      = running and not finished
-        self.btn_pause.label        = "Resume" if paused else "Pause"
-        self.btn_random.enabled     = self.state.mode == "sorting" and not running
-        self.btn_set_start.enabled  = not running
-        self.btn_set_end.enabled    = not running
-        self.btn_clear.enabled      = not running
-        self.btn_apply.enabled      = self.state.mode == "sorting" and not running
+        self.btn_start.enabled     = not running or finished
+        self.btn_pause.enabled     = running and not finished
+        self.btn_pause.label       = "Resume" if paused else "Pause"
+        self.btn_random.enabled    = self.state.mode == "sorting" and not running
+        self.btn_set_start.enabled = not running
+        self.btn_set_end.enabled   = not running
+        self.btn_clear.enabled     = not running
+        self.btn_apply.enabled     = (self.state.mode == "sorting"
+                                      and not running
+                                      and not self.state.is_search_algo)
+        self.btn_set_target.enabled = (self.state.mode == "sorting"
+                                       and not running
+                                       and self.state.is_search_algo)
 
     def draw(self, surface):
         pygame.draw.rect(surface, C_PANEL, (0, 0, WIDTH, TOP_PANEL_H))
         pygame.draw.line(surface, C_BORDER, (0, TOP_PANEL_H), (WIDTH, TOP_PANEL_H), 1)
 
-        # Title
         t = self.f_title.render("AlgoViz", True, C_CYAN)
         surface.blit(t, (WIDTH - t.get_width() - 16, 10))
         s = self.f_sub.render("Desktop Edition", True, C_TEXT_DIM)
         surface.blit(s, (WIDTH - s.get_width() - 16, 36))
 
-        # Section labels
         for text, x in (("MODE", 16), ("ALGORITHM", 300), ("CONTROLS", 496)):
             l = self.f_sub.render(text, True, C_TEXT_MUTED)
             surface.blit(l, (x, 4))
 
-        # Dividers
         pygame.draw.line(surface, C_BORDER, (288, 10), (288, TOP_PANEL_H - 10))
         pygame.draw.line(surface, C_BORDER, (484, 10), (484, TOP_PANEL_H - 10))
 
@@ -188,31 +188,45 @@ class ControlPanel:
         if self.state.mode == "sorting":
             self.btn_random.draw(surface)
 
-            # ── Custom Array Input section ────────────────────────────────────
-            # Label
-            lbl = self.f_hint.render("CUSTOM ARRAY (comma-separated, 1-200):", True, C_TEXT_MUTED)
-            surface.blit(lbl, (582, 50))
-
-            self.array_input.draw(surface)
-            self.btn_apply.draw(surface)
-
-            # Feedback message
-            if self.input_msg:
-                msg_surf = self.f_sm.render(self.input_msg, True, self.input_msg_col)
-                surface.blit(msg_surf, (582, 90))
+            if self.state.is_search_algo:
+                # Search algo — target input দেখাই
+                lbl = self.f_hint.render("SEARCH TARGET VALUE:", True, C_TEXT_MUTED)
+                surface.blit(lbl, (582, 50))
+                self.target_input.draw(surface)
+                self.btn_set_target.draw(surface)
+                # Current target
+                if self.state.search_target is not None:
+                    cur = self.f_sm.render(
+                        f"Current target: {self.state.search_target}",
+                        True, (255, 214, 10))
+                    surface.blit(cur, (786, 62))
             else:
-                hint = self.f_hint.render(
-                    "Type values & press Enter or Apply  |  Random = new random array",
-                    True, C_TEXT_MUTED)
-                surface.blit(hint, (582, 90))
-            # ─────────────────────────────────────────────────────────────────
+                # Normal sort — array input দেখাই
+                lbl = self.f_hint.render("CUSTOM ARRAY (comma-sep, 1-200, max 50):", True, C_TEXT_MUTED)
+                surface.blit(lbl, (582, 50))
+                self.array_input.draw(surface)
+                self.btn_apply.draw(surface)
+
+            if self.input_msg:
+                msg_s = self.f_sm.render(self.input_msg, True, self.input_msg_col)
+                surface.blit(msg_s, (582, 90))
+            else:
+                if self.state.is_search_algo:
+                    h = self.f_hint.render(
+                        "Type a number & Set target, then press Start",
+                        True, C_TEXT_MUTED)
+                else:
+                    h = self.f_hint.render(
+                        "Type values & Enter/Apply  |  Random = new array",
+                        True, C_TEXT_MUTED)
+                surface.blit(h, (582, 90))
         else:
             self.btn_set_start.draw(surface)
             self.btn_set_end.draw(surface)
             self.btn_clear.draw(surface)
             if self.placing_mode:
                 col = C_GREEN if self.placing_mode == "start" else C_ORANGE
-                pm = self.f_sm.render(
+                pm  = self.f_sm.render(
                     f"Placing {self.placing_mode.upper()} — click a cell", True, col)
                 surface.blit(pm, (300, 92))
 

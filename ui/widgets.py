@@ -127,106 +127,76 @@ class Slider:
 
 
 class TextInput:
-    """
-    Custom array input field।
-    User comma-separated values type করতে পারবে।
-    যেমন: 5, 3, 8, 1, 9
-    """
-    def __init__(self, x, y, w, h, placeholder="e.g. 5,3,8,1,9"):
-        self.rect        = pygame.Rect(x, y, w, h)
-        self.placeholder = placeholder
-        self.text        = ""
-        self.active      = False
-        self.cursor_vis  = True
+    """Comma-separated array input এবং single number input উভয়ের জন্য।"""
+    def __init__(self, x, y, w, h, placeholder="e.g. 5,3,8,1,9", mode="array"):
+        self.rect         = pygame.Rect(x, y, w, h)
+        self.placeholder  = placeholder
+        self.text         = ""
+        self.active       = False
+        self.cursor_vis   = True
         self.cursor_timer = 0
-        self._font       = None
-        self.error       = False   # লাল border দেখাবে যদি invalid input হয়
+        self._font        = None
+        self.error        = False
+        self.mode         = mode  # "array" or "number"
 
-    def set_font(self, f):
-        self._font = f
+    def set_font(self, f): self._font = f
 
     def handle_event(self, event):
-        """
-        Return: list of ints যদি Enter চাপা হয়, নয়তো None।
-        """
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.active = self.rect.collidepoint(event.pos)
             self.error  = False
-
         if not self.active:
             return None
-
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_BACKSPACE:
-                self.text = self.text[:-1]
-                self.error = False
+                self.text = self.text[:-1]; self.error = False
             elif event.key == pygame.K_RETURN:
                 return self._parse()
             elif event.key == pygame.K_ESCAPE:
                 self.active = False
-            elif event.unicode in "0123456789, ":
-                self.text += event.unicode
-                self.error = False
+            else:
+                allowed = "0123456789, " if self.mode == "array" else "0123456789"
+                if event.unicode in allowed:
+                    self.text += event.unicode; self.error = False
         return None
 
     def _parse(self):
-        """Text parse করে int list বানায়।"""
+        if self.mode == "number":
+            try:
+                v = int(self.text.strip())
+                self.error = False; return v
+            except ValueError:
+                self.error = True; return None
         try:
             parts = [p.strip() for p in self.text.split(",") if p.strip()]
-            if not parts:
-                self.error = True
-                return None
+            if not parts: self.error = True; return None
             values = [int(p) for p in parts]
-            # 2 থেকে 50 values এর মধ্যে, প্রতিটি 1-200
-            if not (2 <= len(values) <= 50):
-                self.error = True
-                return None
-            if any(v < 1 or v > 200 for v in values):
-                self.error = True
-                return None
-            self.error = False
-            return values
+            if not (2 <= len(values) <= 50): self.error = True; return None
+            if any(v < 1 or v > 200 for v in values): self.error = True; return None
+            self.error = False; return values
         except ValueError:
-            self.error = True
-            return None
+            self.error = True; return None
 
     def update(self):
         self.cursor_timer += 1
         if self.cursor_timer >= 30:
-            self.cursor_vis  = not self.cursor_vis
-            self.cursor_timer = 0
+            self.cursor_vis = not self.cursor_vis; self.cursor_timer = 0
 
     def draw(self, surface):
         from core.constants import C_BTN_NORMAL, C_BORDER, C_CYAN, C_TEXT, C_TEXT_MUTED
-
-        # Background
-        bg = C_BTN_NORMAL
-        pygame.draw.rect(surface, bg, self.rect, border_radius=6)
-
-        # Border — cyan যদি active, লাল যদি error, নয়তো normal
-        if self.error:
-            border_col = (255, 69, 58)
-        elif self.active:
-            border_col = C_CYAN
-        else:
-            border_col = C_BORDER
+        pygame.draw.rect(surface, C_BTN_NORMAL, self.rect, border_radius=6)
+        border_col = (255,69,58) if self.error else (C_CYAN if self.active else C_BORDER)
         pygame.draw.rect(surface, border_col, self.rect, 1, border_radius=6)
-
         if self._font:
             display = self.text if self.text else self.placeholder
             col = C_TEXT if self.text else C_TEXT_MUTED
             txt_surf = self._font.render(display, True, col)
-            # Text clipping
-            clip = pygame.Rect(self.rect.x + 8, self.rect.y,
-                               self.rect.w - 16, self.rect.h)
+            clip = pygame.Rect(self.rect.x+8, self.rect.y, self.rect.w-16, self.rect.h)
             surface.set_clip(clip)
             ty = self.rect.y + (self.rect.h - txt_surf.get_height()) // 2
-            surface.blit(txt_surf, (self.rect.x + 8, ty))
+            surface.blit(txt_surf, (self.rect.x+8, ty))
             surface.set_clip(None)
-
-            # Cursor
             if self.active and self.cursor_vis and self.text:
-                cx = self.rect.x + 8 + txt_surf.get_width() + 1
-                cy = self.rect.y + 6
+                cx = self.rect.x + 8 + min(txt_surf.get_width(), self.rect.w - 20) + 1
                 pygame.draw.line(surface, C_CYAN,
-                                 (cx, cy), (cx, self.rect.bottom - 6), 2)
+                                 (cx, self.rect.y+6), (cx, self.rect.bottom-6), 2)
